@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f3503509-ed34-4b12-b241-9aab2740085e" basePath="orderTreeCommands" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="test-tree-1Flow" doc:id="5da2ba0e-587f-4073-8a9a-cd40a8da03d8" >
+		<http:listener doc:name="Listener" doc:id="4e7697e8-33a4-41d9-81b5-c75a130b2bad" config-ref="HTTP_Listener_config" path="/listCommands" outputMimeType="application/json"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0b3e27bf-3244-4f9a-a087-69c96522bbf1" message="Payload is: #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="edd6ea27-cdd5-40e2-911f-590aaa3054cb" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+import * from dw::util::Tree
+output application/java
+---
+mapRoot: payload.tasks filter (value, index) -> (value.requires == null)]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

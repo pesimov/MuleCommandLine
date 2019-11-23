@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="input-tasks" format="json">
+      <types:shape format="weave" example="examples/test-list-one-tree.json"><![CDATA[%dw 2.0
+
+type input_tasks = {|
+  tasks: Array<{|    name: String,     command: String,     requires: Array<String>
+  |}>
+|} {"example": "{\\\"tasks\\\":[{\\\"name\\\":\\\"task-1\\\",\\\"command\\\":\\\"touch \\/tmp\\/file1\\\"},{\\\"name\\\":\\\"task-2\\\",\\\"command\\\":\\\"cat \\/tmp\\/file1\\\",\\\"requires\\\":[\\\"task-3\\\"]},{\\\"name\\\":\\\"task-3\\\",\\\"command\\\":\\\"echo 'Hello World!' > \\/tmp\\/file1\\\",\\\"requires\\\":[\\\"task-1\\\"]},{\\\"name\\\":\\\"task-4\\\",\\\"command\\\":\\\"rm \\/tmp\\/file1\\\",\\\"requires\\\":[\\\"task-2\\\",\\\"task-3\\\"]}]}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#edd6ea27-cdd5-40e2-911f-590aaa3054cb">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="input-tasks"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
