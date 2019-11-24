@@ -19,6 +19,20 @@ type input_tasks = {|
           <types:payload type="input-tasks"/>
         </types:message>
       </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="input-tasks"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#351bd53e-8158-4c81-9a14-109476e59387">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="input-tasks"/>
+        </types:message>
+      </types:input-event>
     </types:processor-declaration>
   </types:enrichment>
 </types:mule>

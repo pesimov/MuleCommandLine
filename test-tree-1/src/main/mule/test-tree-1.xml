@@ -1,24 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+<mule xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
-http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="f3503509-ed34-4b12-b241-9aab2740085e" basePath="orderTreeCommands" >
-		<http:listener-connection host="0.0.0.0" port="8081" />
-	</http:listener-config>
-	<flow name="test-tree-1Flow" doc:id="5da2ba0e-587f-4073-8a9a-cd40a8da03d8" >
-		<http:listener doc:name="Listener" doc:id="4e7697e8-33a4-41d9-81b5-c75a130b2bad" config-ref="HTTP_Listener_config" path="/listCommands" outputMimeType="application/json"/>
-		<logger level="INFO" doc:name="Logger" doc:id="0b3e27bf-3244-4f9a-a087-69c96522bbf1" message="Payload is: #[payload]"/>
-		<ee:transform doc:name="Transform Message" doc:id="edd6ea27-cdd5-40e2-911f-590aaa3054cb" >
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd">
+	<flow name="test-tree-1Flow1" doc:id="172d215a-9406-41f8-a037-64de7af7a1b8" initialState="started" maxConcurrency="1">
+		<scheduler doc:name="Scheduler" doc:id="d36f7b56-d421-4299-8611-9b21d5c659ba" >
+			<scheduling-strategy >
+				<cron expression="0 0/1 * 1/1 * ? *" />
+			</scheduling-strategy>
+		</scheduler>
+		<set-payload value="#[{ 
+	&quot;tasks&quot;:
+	[
+		{&quot;name&quot; : &quot;task-1&quot; ,&quot;command&quot; : &quot;touch /tmp/file1&quot;},
+		{&quot;name&quot; : &quot;task-2&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},
+		{&quot;name&quot; : &quot;task-3&quot; ,&quot;command&quot; : &quot;echo 'Hello World!' &gt; /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-1&quot;]},
+		{&quot;name&quot; : &quot;task-4&quot; ,&quot;command&quot; : &quot;rm /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-2&quot;, &quot;task-3&quot;]}
+	]
+}]" doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0cbe1643-b0d0-47d8-8ed1-49fb186080ae" message="payload is: #[payload]"/>
+		<ee:transform doc:name="Transform Message" doc:id="351bd53e-8158-4c81-9a14-109476e59387" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
-import * from dw::util::Tree
 output application/java
 ---
-mapRoot: payload.tasks filter (value, index) -> (value.requires == null)]]></ee:set-payload>
+payload.tasks]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+		<java:new doc:name="New" doc:id="545be89a-c623-42ed-8e9a-33128ec293bb" class="recursiveTreeOrderCommands" constructor="recursiveTreeOrderCommands(java.util.ArrayList)">
+			<java:args><![CDATA[#[{ 
+	"tasks":
+	[
+		{"name" : "task-1" ,"command" : "touch /tmp/file1"},
+		{"name" : "task-3" ,"command" : "echo 'Hello World!' > /tmp/file1", "requires" : ["task-1"]}
+	]
+}]]]></java:args>
+		</java:new>
 	</flow>
 </mule>
