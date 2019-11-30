@@ -4,7 +4,7 @@ import java.util.*;
 public class TaskNode {
 	    private String name;
 	    private String command;
-	    private Optional<ArrayList<String>> requires;
+	    private ArrayList<Optional<String>> requires;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
 	    
 	    public String getName() {
@@ -19,10 +19,10 @@ public class TaskNode {
 	    public void setCommand(String _command) {
 	        this.command = _command;
 	    }	    
-	    public Optional<ArrayList<String>> getRequiresTasks() {
+	    public ArrayList<Optional<String>> getRequiresTasks() {
 	        return requires;
 	    }
-	    public void setRequiresTasks(Optional<ArrayList<String>> _requires) {
+	    public void setRequiresTasks(ArrayList<Optional<String>> _requires) {
 	        this.requires = _requires;
 	    }
 	    public List<TaskNode> getChildrenItems() {
