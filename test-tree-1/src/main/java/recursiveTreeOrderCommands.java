@@ -3,6 +3,7 @@ import com.tasks.TaskNode;
 import java.util.Iterator;
 //import java.util.List;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,10 +15,16 @@ public class recursiveTreeOrderCommands {
 		// https://stackoverflow.com/questions/30570146/convert-java-arraylist-of-parent-child-relation-into-tree
 		// Arrange
         // String corresponds to the Id
-		/*        Map<String, TaskNode> hm = new HashMap<>();
-		///System.out.println(tasks);
-     // you are using MegaMenuDTO as Linked list with next and before link 
-
+	     Map<String, TaskNode> hashMapTasks = new HashMap<String, TaskNode>();
+		
+		// Find the available roots
+		List<TaskNode> rootNodes = new ArrayList<TaskNode>(); 
+		for(TaskNode task : tasks){
+			if(task.getRequiresTasks() != null) {
+				rootNodes.add(task);
+			}
+		}
+		/*
         // populate a Map
         for(TaskNode tn:tasks){
 
@@ -52,13 +59,8 @@ public class recursiveTreeOrderCommands {
 
         }
 
-        // Get the root
-        List<TaskNode> DX = new ArrayList<TaskNode>(); 
-        for(TaskNode mmd : hm.values()){
-            if(mmd.getParentId().equals("null"))
-                DX.add(mmd);
-        }
 
+/*
         // Print 
         for(TaskNode mmd: DX){
             System.out.println("DX contains "+DX.size()+" that are : "+ mmd);
@@ -72,7 +74,5 @@ public class recursiveTreeOrderCommands {
 	      }
 */
 	}
-	public void init() {
 
-	}
 }

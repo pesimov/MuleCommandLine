@@ -1,11 +1,10 @@
 package com.tasks;
-import java.util.List;
 import java.util.*;
 
 public class TaskNode {
 	    private String name;
 	    private String command;
-	    private ArrayList<String> requires;//should change to an ArrayList!
+	    private Optional<ArrayList<String>> requires;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
 	    
 	    public String getName() {
@@ -20,10 +19,10 @@ public class TaskNode {
 	    public void setCommand(String _command) {
 	        this.command = _command;
 	    }	    
-	    public ArrayList<String> getRequiresTasks() {
+	    public Optional<ArrayList<String>> getRequiresTasks() {
 	        return requires;
 	    }
-	    public void setRequiresTasks(ArrayList<String> _requires) {
+	    public void setRequiresTasks(Optional<ArrayList<String>> _requires) {
 	        this.requires = _requires;
 	    }
 	    public List<TaskNode> getChildrenItems() {
