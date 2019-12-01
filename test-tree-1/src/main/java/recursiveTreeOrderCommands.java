@@ -53,10 +53,10 @@ public class recursiveTreeOrderCommands {
 		final Iterator<TaskNode> iterator = all.iterator();
 		while (iterator.hasNext()) {
 			final TaskNode next = iterator.next();
-			ArrayList<Optional<String>> requiredTasks = next.getRequiresTasks();
+			ArrayList<String> requiredTasks = next.getRequiresTasks();
 			if (requiredTasks != null) {
 				
-				final Optional<String> parentId = requiredTasks.get(0);
+				final String parentId = requiredTasks.get(0);
 				//TODO: validation
 					final TaskNode node = allMap.get(next.getName());
 					final TaskNode nodeP = allMap.get(parentId);

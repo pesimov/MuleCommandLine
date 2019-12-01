@@ -4,7 +4,7 @@ import java.util.*;
 public class TaskNode {
 	    private String name;
 	    private String command;
-	    private ArrayList<Optional<String>> requires;
+	    private ArrayList<String> requires;
 	    private boolean isRoot = false;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
 	    
@@ -20,13 +20,21 @@ public class TaskNode {
 	    public void setRoot(boolean _isRoot) {
 	    		this.isRoot = _isRoot;
 	    }
+	    public boolean getRoot() {
+    		return isRoot;
+    }	    
 	    public void setCommand(String _command) {
 	        this.command = _command;
-	    }	    
-	    public ArrayList<Optional<String>> getRequiresTasks() {
-	        return requires;
 	    }
-	    public void setRequiresTasks(ArrayList<Optional<String>> _requires) {
+	    //TODO: investigate use of Optional, an error in getTree was traced to it
+	    public ArrayList<String> getRequiresTasks() {
+	    		if(requires == null) {
+	    			return null;
+	    		} else {
+	    			return requires;
+	    		}
+	    }
+	    public void setRequiresTasks(ArrayList<String> _requires) {
 	        this.requires = _requires;
 	    }
 	    public List<TaskNode> getChildrenItems() {
