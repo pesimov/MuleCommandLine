@@ -10,7 +10,7 @@ public class TaskNodeHelper {
 		//Assumes isVisited is set to false for all nodes on start
 		
 		for(TaskNode rootTask : treeOfTasks) {
-	        System.out.println(rootTask.getName()+"::"+ rootTask.getCommand());
+	        System.out.println(rootTask.getCommand());
 	        rootTask.setIsNodeVisited(true);
 	        traverseNode(rootTask);
 	    }
@@ -30,7 +30,7 @@ public class TaskNodeHelper {
 	    				}
 	    			}
 	    			if(isRequiredTaskNotVisitedYet == false) {
-	    				System.out.println( childNode.getName()+"::"+ childNode.getCommand());
+	    				System.out.println( childNode.getCommand());
 	    				childNode.setIsNodeVisited(true);
 	    			}
 	    }}
