@@ -7,13 +7,11 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
 http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
 http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd">
-	<flow name="test-tree-1Flow1" doc:id="172d215a-9406-41f8-a037-64de7af7a1b8" initialState="stopped" maxConcurrency="1">
-		<scheduler doc:name="Scheduler" doc:id="d36f7b56-d421-4299-8611-9b21d5c659ba" >
-			<scheduling-strategy >
-				<cron expression="0 0/1 * 1/1 * ? *" />
-			</scheduling-strategy>
-		</scheduler>
-		<set-payload value='#[readUrl("classpath://examples/test6-long-tree-out-of-order-reference-to-root.json", "application/json")]' doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>		
+	<http:listener-config name="HTTP_Listener_config_command_line" doc:name="HTTP Listener config" doc:id="bfbab874-ee6a-4d2d-8636-99e4026e4764" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="command-line-receiver-flow" doc:id="172d215a-9406-41f8-a037-64de7af7a1b8" initialState="started" maxConcurrency="1">
+			<http:listener doc:name="Listener" doc:id="1dca35cb-6a83-44cc-85f0-2ed553b182e6" config-ref="HTTP_Listener_config_command_line" path="/orderCommands" outputMimeType="application/json"/>		
 		<logger level="INFO" doc:name="Logger" doc:id="0cbe1643-b0d0-47d8-8ed1-49fb186080ae" message="payload is: #[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="8cbb47eb-ef28-450f-b505-fb5a1630a1d8" >
 			<ee:message >
