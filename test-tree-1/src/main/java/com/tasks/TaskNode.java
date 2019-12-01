@@ -50,4 +50,5 @@ public class TaskNode {
 	    public void setChildrenItems(List<TaskNode> _childrenItems) {
 	        this.childrenItems = _childrenItems;
 	    }
+
 }

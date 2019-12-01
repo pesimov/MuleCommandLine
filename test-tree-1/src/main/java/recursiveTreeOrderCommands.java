@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.tasks.TaskNode;
+import com.tasks.TaskNodeHelper;
 import java.util.Iterator;
-//import java.util.List;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.HashMap;
@@ -32,7 +32,7 @@ public class recursiveTreeOrderCommands {
 			}
 		}		
 		List<TaskNode> treeOfTasks = getTree(tasks);
-		printTree(treeOfTasks);
+		com.tasks.TaskNodeHelper.printTree(treeOfTasks);
 
 	}
 
@@ -72,26 +72,5 @@ public class recursiveTreeOrderCommands {
 		}
 		return result;
 	}
-	
-	public void printTree(List<TaskNode> treeOfTasks) {
-		
-		for(TaskNode rootTask : treeOfTasks) {
-	        System.out.println(rootTask.getName()+"::"+ rootTask.getCommand());
-	        traverseNode(rootTask);
-	    }
-	}
-	
-	public void traverseNode ( TaskNode parentNode ) {
-		//print 
-	    for(TaskNode childNode: parentNode.getChildrenItems()) {
-	      // print information from the child nodes
-	      System.out.println( childNode.getName()+"::"+ childNode.getCommand());
-	    }
-	    //traverse children nodes
-	    for(TaskNode childNode: parentNode.getChildrenItems()) {
-		      // print information from the child nodes
-	    			traverseNode(childNode);
-		    }
-	  }
 
 }
