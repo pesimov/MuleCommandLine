@@ -23,22 +23,16 @@ http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/jav
 	]
 }]" doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>
 		<logger level="INFO" doc:name="Logger" doc:id="0cbe1643-b0d0-47d8-8ed1-49fb186080ae" message="payload is: #[payload]"/>
-		<ee:transform doc:name="Transform Message" doc:id="351bd53e-8158-4c81-9a14-109476e59387" >
+		<ee:transform doc:name="Transform Message" doc:id="8cbb47eb-ef28-450f-b505-fb5a1630a1d8" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/java
 ---
-payload.tasks]]></ee:set-payload>
+payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
 		<java:new doc:name="New" doc:id="545be89a-c623-42ed-8e9a-33128ec293bb" class="recursiveTreeOrderCommands" constructor="recursiveTreeOrderCommands(java.util.ArrayList)">
-			<java:args><![CDATA[#[{ 
-	"tasks":
-	[
-		{"name" : "task-1" ,"command" : "touch /tmp/file1"},
-		{"name" : "task-3" ,"command" : "echo 'Hello World!' > /tmp/file1", "requires" : ["task-1"]}
-	]
-}]]]></java:args>
+			<java:args><![CDATA[#[payload]]]></java:args>
 		</java:new>
 	</flow>
 </mule>
