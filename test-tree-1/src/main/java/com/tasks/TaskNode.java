@@ -5,6 +5,7 @@ public class TaskNode {
 	    private String name;
 	    private String command;
 	    private ArrayList<Optional<String>> requires;
+	    private boolean isRoot = false;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
 	    
 	    public String getName() {
@@ -15,6 +16,9 @@ public class TaskNode {
 	    }
 	    public String getCommand() {
 	        return command;
+	    }
+	    public void setRoot(boolean _isRoot) {
+	    		this.isRoot = _isRoot;
 	    }
 	    public void setCommand(String _command) {
 	        this.command = _command;
