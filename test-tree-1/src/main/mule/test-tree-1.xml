@@ -17,9 +17,12 @@ http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/jav
 	&quot;tasks&quot;:
 	[
 		{&quot;name&quot; : &quot;task-1&quot; ,&quot;command&quot; : &quot;touch /tmp/file1&quot;},
-		{&quot;name&quot; : &quot;task-2&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},
+		{&quot;name&quot; : &quot;task-2A&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},
+		{&quot;name&quot; : &quot;task-2B&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},
+		{&quot;name&quot; : &quot;task-2C&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},
+		{&quot;name&quot; : &quot;task-2D&quot; ,&quot;command&quot; : &quot;cat /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-3&quot;]},						
 		{&quot;name&quot; : &quot;task-3&quot; ,&quot;command&quot; : &quot;echo 'Hello World!' &gt; /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-1&quot;]},
-		{&quot;name&quot; : &quot;task-4&quot; ,&quot;command&quot; : &quot;rm /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-2&quot;, &quot;task-3&quot;]}
+		{&quot;name&quot; : &quot;task-4&quot; ,&quot;command&quot; : &quot;rm /tmp/file1&quot;, &quot;requires&quot; : [&quot;task-2A&quot;, &quot;task-2B&quot;, &quot;task-2C&quot;, &quot;task-2D&quot;,&quot;task-3&quot;]}
 	]
 }]" doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>
 		<logger level="INFO" doc:name="Logger" doc:id="0cbe1643-b0d0-47d8-8ed1-49fb186080ae" message="payload is: #[payload]"/>

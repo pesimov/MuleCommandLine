@@ -9,6 +9,7 @@ public class TaskNode {
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
 	    private Integer nodeLevel = -1;
 	    private boolean isNodeLevelInitialized = false;
+	    private boolean isNodeVisited = false;
 	    
 	    public String getName() {
 	        return name;
@@ -50,5 +51,10 @@ public class TaskNode {
 	    public void setChildrenItems(List<TaskNode> _childrenItems) {
 	        this.childrenItems = _childrenItems;
 	    }
-
+	    public boolean getIsNodeVisited() {
+	        return isNodeVisited;
+	    }
+	    public void setIsNodeVisited(boolean _isVisited) {
+	        this.isNodeVisited = _isVisited;
+	    }
 }
