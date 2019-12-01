@@ -1,0 +1,13 @@
+{ 
+	"tasks":
+	[
+		{"name" : "task-A-1" ,"command" : "touch /tmp/file1"},
+		{"name" : "task-A-2" ,"command" : "cat /tmp/file1", "requires" : ["task-A-3"]},						
+		{"name" : "task-A-3" ,"command" : "echo 'Hello World!' > /tmp/file1", "requires" : ["task-A-1"]},
+		{"name" : "task-A-4" ,"command" : "rm /tmp/file1", "requires" : ["task-A-2","task-A-3"]},
+		{"name" : "task-B-1" ,"command" : "touch /tmp/file1"},
+		{"name" : "task-B-2" ,"command" : "cat /tmp/file1", "requires" : ["task-B-3"]},						
+		{"name" : "task-B-3" ,"command" : "echo 'Hello World!' > /tmp/file1", "requires" : ["task-B-1"]},
+		{"name" : "task-B-4" ,"command" : "rm /tmp/file1", "requires" : ["task-B-2","task-B-3"]}		
+	]
+}
