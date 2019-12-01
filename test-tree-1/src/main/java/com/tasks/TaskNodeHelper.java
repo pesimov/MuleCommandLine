@@ -1,5 +1,6 @@
 package com.tasks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskNodeHelper {
@@ -20,8 +21,18 @@ public class TaskNodeHelper {
 	    for(TaskNode childNode: parentNode.getChildrenItems()) {
 	      // print information from the child nodes
 	    		if(!childNode.getIsNodeVisited()) {
-	    			System.out.println( childNode.getName()+"::"+ childNode.getCommand());
-	    			childNode.setIsNodeVisited(true);
+	    			List<TaskNode> reqTasks = childNode.getRequiredItems();
+	    			boolean isRequiredTaskNotVisitedYet = false;
+	    			for (TaskNode task: reqTasks) {
+	    				if (task.getIsNodeVisited() == false) {
+	    					isRequiredTaskNotVisitedYet = true;
+	    					break;
+	    				}
+	    			}
+	    			if(isRequiredTaskNotVisitedYet == false) {
+	    				System.out.println( childNode.getName()+"::"+ childNode.getCommand());
+	    				childNode.setIsNodeVisited(true);
+	    			}
 	    }}
 	    //traverse children nodes
 	    for(TaskNode childNode: parentNode.getChildrenItems()) {

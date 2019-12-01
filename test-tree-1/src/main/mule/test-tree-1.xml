@@ -13,7 +13,7 @@ http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/jav
 				<cron expression="0 0/1 * 1/1 * ? *" />
 			</scheduling-strategy>
 		</scheduler>
-		<set-payload value='#[readUrl("classpath://examples/test4-multiple-root-nodes.json", "application/json")]' doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>
+		<set-payload value='#[readUrl("classpath://examples/test6-long-tree-out-of-order-reference-to-root.json", "application/json")]' doc:name="Set Payload" doc:id="9ce0c777-c12c-491f-b6de-4255619baffb"/>
 		<logger level="INFO" doc:name="Logger" doc:id="0cbe1643-b0d0-47d8-8ed1-49fb186080ae" message="payload is: #[payload]"/>
 		<ee:transform doc:name="Transform Message" doc:id="8cbb47eb-ef28-450f-b505-fb5a1630a1d8" >
 			<ee:message >

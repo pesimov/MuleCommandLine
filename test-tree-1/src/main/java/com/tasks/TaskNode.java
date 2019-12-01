@@ -7,6 +7,7 @@ public class TaskNode {
 	    private ArrayList<String> requires;
 	    private boolean isRoot = false;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
+	    private List<TaskNode> requiredItems=new ArrayList<TaskNode>();	    
 	    private Integer nodeLevel = -1;
 	    private boolean isNodeLevelInitialized = false;
 	    private boolean isNodeVisited = false;
@@ -50,6 +51,12 @@ public class TaskNode {
 	    }
 	    public void setChildrenItems(List<TaskNode> _childrenItems) {
 	        this.childrenItems = _childrenItems;
+	    }
+	    public List<TaskNode> getRequiredItems() {
+	        return requiredItems;
+	    }
+	    public void setRequiredItems(List<TaskNode> _requiredItems) {
+	        this.requiredItems = _requiredItems;
 	    }
 	    public boolean getIsNodeVisited() {
 	        return isNodeVisited;

@@ -15,22 +15,9 @@ import org.apache.commons.lang3.StringUtils;
 public class recursiveTreeOrderCommands {
 	public recursiveTreeOrderCommands(java.util.ArrayList<com.tasks.TaskNode> tasks) {
 
-		// following suggestions at:
+		// Evaluated suggestions at:
 		// https://stackoverflow.com/questions/30570146/convert-java-arraylist-of-parent-child-relation-into-tree
-		// Arrange
-		// String corresponds to the Id
-		HashMap<String, TaskNode> hashMapTasks = new HashMap<String, TaskNode>();
-		ArrayList<TaskNode> childrenTasks = new ArrayList<TaskNode>(); // TODO: invetigate another object, adding to
-																		// ArrayList is not optimal
-		// Find the available roots
-		ArrayList<TaskNode> rootNodes = new ArrayList<TaskNode>();
-		for (TaskNode task : tasks) {
-			if (task.getRequiresTasks() == null) {
-				rootNodes.add(task);
-			} else {
-				childrenTasks.add(task);
-			}
-		}		
+		
 		List<TaskNode> treeOfTasks = getTree(tasks);
 		com.tasks.TaskNodeHelper.printTree(treeOfTasks);
 
@@ -58,17 +45,18 @@ public class recursiveTreeOrderCommands {
 			if (requiredTasks != null) {
 				for(String parentTaskName: requiredTasks) {
 				//TODO: validation
-					final TaskNode node = allMap.get(next.getName());
+					final TaskNode nodeC = allMap.get(next.getName());
 					final TaskNode nodeP = allMap.get(parentTaskName);
 					if (nodeP != null) {
-						nodeP.getChildrenItems().add(node);
+						nodeP.getChildrenItems().add(nodeC);
+						nodeC.getRequiredItems().add(nodeP);
 					}
+					
 				}
 				} else {
 					next.setRoot(true);
 					result.add(next);
 				}
-			//check
 		}
 		return result;
 	}
