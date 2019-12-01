@@ -7,6 +7,8 @@ public class TaskNode {
 	    private ArrayList<String> requires;
 	    private boolean isRoot = false;
 	    private List<TaskNode> childrenItems=new ArrayList<TaskNode>();
+	    private Integer nodeLevel = -1;
+	    private boolean isNodeLevelInitialized = false;
 	    
 	    public String getName() {
 	        return name;
@@ -19,9 +21,14 @@ public class TaskNode {
 	    }
 	    public void setRoot(boolean _isRoot) {
 	    		this.isRoot = _isRoot;
+	    		this.nodeLevel = 0;
+	    		this.isNodeLevelInitialized = true;
 	    }
 	    public boolean getRoot() {
-    		return isRoot;
+    			return isRoot;
+	    }
+	    public Integer getNodeLevel() {
+			return nodeLevel;
     }	    
 	    public void setCommand(String _command) {
 	        this.command = _command;

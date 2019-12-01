@@ -32,6 +32,7 @@ public class recursiveTreeOrderCommands {
 			}
 		}		
 		List<TaskNode> treeOfTasks = getTree(tasks);
+		printTree(treeOfTasks);
 
 	}
 
@@ -55,14 +56,14 @@ public class recursiveTreeOrderCommands {
 			final TaskNode next = iterator.next();
 			ArrayList<String> requiredTasks = next.getRequiresTasks();
 			if (requiredTasks != null) {
-				
-				final String parentId = requiredTasks.get(0);
+				for(String parentTaskName: requiredTasks) {
 				//TODO: validation
 					final TaskNode node = allMap.get(next.getName());
-					final TaskNode nodeP = allMap.get(parentId);
+					final TaskNode nodeP = allMap.get(parentTaskName);
 					if (nodeP != null) {
 						nodeP.getChildrenItems().add(node);
 					}
+				}
 				} else {
 					next.setRoot(true);
 					result.add(next);
@@ -71,4 +72,26 @@ public class recursiveTreeOrderCommands {
 		}
 		return result;
 	}
+	
+	public void printTree(List<TaskNode> treeOfTasks) {
+		
+		for(TaskNode rootTask : treeOfTasks) {
+	        System.out.println(rootTask.getName()+"::"+ rootTask.getCommand());
+	        traverseNode(rootTask);
+	    }
+	}
+	
+	public void traverseNode ( TaskNode parentNode ) {
+		//print 
+	    for(TaskNode childNode: parentNode.getChildrenItems()) {
+	      // print information from the child nodes
+	      System.out.println( childNode.getName()+"::"+ childNode.getCommand());
+	    }
+	    //traverse children nodes
+	    for(TaskNode childNode: parentNode.getChildrenItems()) {
+		      // print information from the child nodes
+	    			traverseNode(childNode);
+		    }
+	  }
+
 }
